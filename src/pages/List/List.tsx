@@ -25,6 +25,7 @@ export const List = () => {
                     </li>
                   </ul>
                 </div>
+                
               </CardList>
             </Main>
           </div>

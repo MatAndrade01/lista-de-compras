@@ -1,10 +1,13 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
 const CheckBoxList = () => {
+  const [check, setCheck] = useState(false)
+
   return (
     <StyledWrapper>
       <label className="cl-checkbox">
-        <input defaultChecked type="checkbox" />
+        <input defaultChecked type="checkbox" checked={check} onChange={() => setCheck(prevState => !prevState)}/>
         <span />
       </label>
     </StyledWrapper>

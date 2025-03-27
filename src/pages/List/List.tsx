@@ -1,3 +1,5 @@
+import { useState } from "react"
+import ButtonConfirm from "../../components/ButtonConfirm/ButtonConfirm"
 import ButtonDelet from "../../components/ButtonDelet/ButtonDelet"
 import CardList from "../../components/CardList/CardList"
 import CheckboxList from "../../components/CheckboxList/CheckBoxList"
@@ -6,6 +8,18 @@ import { Main } from "../../components/Main/Main"
 import MenuMobile from "../../components/MenuMobile/MenuMobile"
 
 export const List = () => {
+  const [todos, setTodos] = useState([
+    {
+      id: 1,
+      text: "Mortadela"
+    },
+    {
+      id: 2,
+      text: "Pão"
+    }
+  ]
+  )
+
   return (
     <>
       <HeaderMobile>
@@ -18,14 +32,22 @@ export const List = () => {
                 </div>
                 <div className="flex justify-center p-4">
                   <ul className="flex flex-col w-full max-w-md justify-between">
-                    <li className="flex justify-between items-center bg-white p-2 rounded-lg shadow-md">
+
+                    {todos.map((todo) => (
+                      <li className="flex justify-between items-center bg-white p-2 rounded-lg shadow-md">
+                        <p className="text-black mr">{todo.text}</p>
+                      </li>
+                    ))}
+                    {/* <li className="flex justify-between items-center bg-white p-2 rounded-lg shadow-md">
                       <CheckboxList />
-                      <p className="text-black mr">Motadela de Frango</p>
+                      <p className="text-black mr">Teste 1</p>
                       <ButtonDelet />
-                    </li>
+                    </li> */}
                   </ul>
                 </div>
-                
+                <div className="flex justify-center mt-10">
+                  <ButtonConfirm value="Finalizar"/>
+                </div>
               </CardList>
             </Main>
           </div>

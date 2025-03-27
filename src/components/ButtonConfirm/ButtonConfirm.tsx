@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 
-const ButtonAdd = () => {
+interface PropsButton {
+  value: string
+}
+
+const ButtonConfirm = ({value}: PropsButton) => {
   return (
     <StyledWrapper>
       <button className="cssbuttons-io-button">
@@ -8,7 +12,7 @@ const ButtonAdd = () => {
           <path d="M0 0h24v24H0z" fill="none" />
           <path d="M11 11V5h2v6h6v2h-6v6h-2v-6H5v-2z" fill="currentColor" />
         </svg>
-        <span>Add</span>
+        <span>{value}</span>
       </button>
     </StyledWrapper>
   );
@@ -48,4 +52,4 @@ const StyledWrapper = styled.div`
     box-shadow: 0 0.3em 1em -0.5em #14a73e98;
   }`;
 
-export default ButtonAdd;
+export default ButtonConfirm;

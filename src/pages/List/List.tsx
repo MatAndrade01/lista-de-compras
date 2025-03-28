@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import ButtonConfirm from "../../components/ButtonConfirm/ButtonConfirm"
 import ButtonDelet from "../../components/ButtonDelet/ButtonDelet"
 import CardList from "../../components/CardList/CardList"
@@ -7,18 +7,26 @@ import { HeaderMobile } from "../../components/HeaderMobile/HeaderMobile"
 import { Main } from "../../components/Main/Main"
 import MenuMobile from "../../components/MenuMobile/MenuMobile"
 
+interface TodoType {
+  id: number,
+  text: string,
+  iscomleted?: boolean
+}
+
 export const List = () => {
-  const [todos, setTodos] = useState([
-    {
-      id: 1,
-      text: "Mortadela"
-    },
-    {
-      id: 2,
-      text: "Pão"
-    }
-  ]
-  )
+  const [todos, setTodos] = useState<TodoType[]>([]);
+ 
+  useEffect(() => {
+    const saveTodos = JSON.parse(localStorage.getItem('todos') || '[]');
+    setTodos(saveTodos);
+  }, [])
+
+  const removeTodo = (id: number) => {
+    const newTodo = [...todos]
+    const filteredTodos = newTodo.filter(todo => todo.id !== id ? todo : null );
+    localStorage.setItem('todos',JSON.stringify(filteredTodos))
+    setTodos(filteredTodos)
+  };
 
   return (
     <>
@@ -32,17 +40,13 @@ export const List = () => {
                 </div>
                 <div className="flex justify-center p-4">
                   <ul className="flex flex-col w-full max-w-md justify-between">
-
                     {todos.map((todo) => (
                       <li className="flex justify-between items-center bg-white p-2 rounded-lg shadow-md">
+                        <CheckboxList />
                         <p className="text-black mr">{todo.text}</p>
+                        <ButtonDelet onClick={() => removeTodo(todo.id)}/>
                       </li>
                     ))}
-                    {/* <li className="flex justify-between items-center bg-white p-2 rounded-lg shadow-md">
-                      <CheckboxList />
-                      <p className="text-black mr">Teste 1</p>
-                      <ButtonDelet />
-                    </li> */}
                   </ul>
                 </div>
                 <div className="flex justify-center mt-10">

@@ -11,8 +11,15 @@ export const Home = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if(!value) return;
+    
+    const existingTodos = JSON.parse(localStorage.getItem('todos') || '[]');
+    const newTodo = {id: Math.floor(Math.random() * 10000), text: value};
+    const updateTodos = [...existingTodos, newTodo];
+
+    localStorage.setItem('todos', JSON.stringify(updateTodos));
+
     setValue("");
-  }
+  };
   return (
     <>
       <HeaderMobile>
